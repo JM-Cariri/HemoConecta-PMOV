@@ -1,5 +1,9 @@
 {
   "expo": {
+    "experiments": {
+      "typedRoutes": true
+    },
+    "scheme": "hemoconecta-pmovel",
     "name": "HemoConecta-PMovel",
     "slug": "HemoConecta-PMovel",
     "version": "1.0.0",
@@ -24,6 +28,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
