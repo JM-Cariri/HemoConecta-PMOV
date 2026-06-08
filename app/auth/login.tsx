@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity,
-  StyleSheet, Image, KeyboardAvoidingView,
+  StyleSheet, KeyboardAvoidingView,
   Platform, ScrollView
 } from 'react-native';
 import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen() {
   const [emailOrCpf, setEmailOrCpf] = useState('');
@@ -12,7 +13,6 @@ export default function LoginScreen() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const handleLogin = () => {
-    // lógica de autenticação aqui
   };
 
   return (
@@ -25,10 +25,6 @@ export default function LoginScreen() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.appName}>🩸 HemoConecta</Text>
-          <Image
-            source={require('@/assets/images/hero.png')} // troque pelo seu asset
-            style={styles.heroImage}
-          />
           <Text style={styles.heroTitle}>Salve vidas!</Text>
           <Text style={styles.heroSubtitle}>Seja a gota que faz diferença</Text>
         </View>
@@ -60,7 +56,11 @@ export default function LoginScreen() {
               secureTextEntry={!mostrarSenha}
             />
             <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-              <Text style={styles.eyeIcon}>{mostrarSenha ? '🙈' : '👁️'}</Text>
+              <Ionicons
+                name={mostrarSenha ? 'eye-off-outline' : 'eye-outline'}
+                size={22}
+                color="#aaa"
+              />            
             </TouchableOpacity>
           </View>
 
@@ -69,12 +69,12 @@ export default function LoginScreen() {
           </TouchableOpacity>
 
           <View style={styles.linksRow}>
-            <Link href={'/(auth)/cadastro' as any} asChild>
+            <Link href={'/auth/cadastro-etapa1' as any} asChild>
               <TouchableOpacity>
                 <Text style={styles.linkText}>Crie sua conta</Text>
               </TouchableOpacity>
             </Link>
-            <Link href={'/(auth)/esqueceu-senha' as any} asChild>
+            <Link href={'/auth/esqueceu-senha' as any} asChild>
               <TouchableOpacity>
                 <Text style={[styles.linkText, styles.linkGreen]}>Esqueceu sua senha?</Text>
               </TouchableOpacity>
@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   scroll: { flexGrow: 1 },
   header: { alignItems: 'center', paddingTop: 48, paddingBottom: 24, backgroundColor: '#fff' },
-  appName: { fontSize: 18, fontWeight: '700', color: '#c0392b', marginBottom: 16 },
-  heroImage: { width: 120, height: 120, resizeMode: 'contain' },
+  appName: { fontSize: 18, fontWeight: '700', marginBottom: 16 },
   heroTitle: { fontSize: 22, fontWeight: '700', marginTop: 8 },
   heroSubtitle: { fontSize: 16, color: '#555' },
   form: { flex: 1, backgroundColor: '#f9f9f9', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 },
