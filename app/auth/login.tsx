@@ -2,9 +2,9 @@ import { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity,
   StyleSheet, KeyboardAvoidingView,
-  Platform, ScrollView
+  Platform, ScrollView, Alert
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen() {
@@ -13,6 +13,12 @@ export default function LoginScreen() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const handleLogin = () => {
+    if (!emailOrCpf.trim() || !senha.trim()) {
+      Alert.alert('Campos obrigatórios', 'Preencha todos os campos para continuar.');
+      return;
+    }
+
+    router.replace('/home');
   };
 
   return (

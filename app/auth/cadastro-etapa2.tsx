@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity,
   StyleSheet, ScrollView, KeyboardAvoidingView,
-  Platform, Switch
+  Platform, Switch, Alert
 } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -24,6 +24,11 @@ export default function CadastroEtapa2() {
   const [lembretes, setLembretes] = useState(true);
 
   const handleCriarConta = () => {
+    if (!email.trim() || !telefone.trim() || !tipoSanguineo.trim() || !pais.trim() || !estado.trim() || !cidade.trim() || !bairro.trim()) {
+      Alert.alert('Campos obrigatórios', 'Preencha todos os campos obrigatórios para continuar.');
+      return;
+    }
+
     const dadosCompletos = {
       nome, cpf, senha,
       email, telefone, tipoSanguineo,

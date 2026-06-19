@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity,
-  StyleSheet, ScrollView, KeyboardAvoidingView, Platform
+  StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert
 } from 'react-native';
 import { Link, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,20 +16,19 @@ export default function CadastroEtapa1() {
   const [erro, setErro] = useState('');
 
   const handleProsseguir = () => {
-    if (!nome || !cpf || !senha || !confirmarSenha) {
-      setErro('Preencha todos os campos.');
+    if (!nome.trim() || !cpf.trim() || !senha.trim() || !confirmarSenha.trim()) {
+      Alert.alert('Campos obrigatórios', 'Preencha todos os campos para continuar.');
       return;
     }
     if (senha !== confirmarSenha) {
-      setErro('As senhas não coincidem.');
+      Alert.alert('Campos obrigatórios', 'As senhas não coincidem.');
       return;
     }
     setErro('');
-    // cast to any to avoid strict typed route union error for this route
     router.push({
-      pathname: '/auth/cadastro-etapa2',
+      pathname: '/auth/cadastro-etapa2' as const,
       params: { nome, cpf, senha },
-    } as any);
+    });
   };
 
   return (
